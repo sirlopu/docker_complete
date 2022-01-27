@@ -12,3 +12,6 @@ docker run -d -p 3000:8000 --env PORT=8000 --rm --name feedback-app -v feedback:
 
 #specifying env port using file
 docker run -d -p 3000:8000 --env-file ./.env --rm --name feedback-app -v feedback:/app/feedback -v "D:\vscode-workspace\docker_complete:/app:ro" -v /app/temp -v /app/node_modules feedback-node:env
+
+using ARGs to for docker build
+docker build -t feedback-node:dev --build-arg DEFAULT_PORT=8000 .
