@@ -1,0 +1,14 @@
+using named volumes (persistent)
+docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback feedback-node:volumes
+
+using bind mounts (bind local app folder with container app folder) -- including anynomous volume to present overwriting protected folders (node_modules) 
+docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback -v "D:\vscode-workspace\docker_complete:/app" -v /app/node_modules feedback-node:volumes
+
+using bind mounts adding read-only on volume :ro
+docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback -v "D:\vscode-workspace\docker_complete:/app:ro" -v /app/temp -v /app/node_modules feedback-node:volumes
+
+#specifying env port
+docker run -d -p 3000:8000 --env PORT=8000 --rm --name feedback-app -v feedback:/app/feedback -v "D:\vscode-workspace\docker_complete:/app:ro" -v /app/temp -v /app/node_modules feedback-node:env
+
+#specifying env port using file
+docker run -d -p 3000:8000 --env-file ./.env --rm --name feedback-app -v feedback:/app/feedback -v "D:\vscode-workspace\docker_complete:/app:ro" -v /app/temp -v /app/node_modules feedback-node:env
