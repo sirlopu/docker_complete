@@ -21,8 +21,22 @@ docker build -t feedback-node:dev --build-arg DEFAULT_PORT=8000 .
 
 docker run --name favorites -d --rm -p 3000:3000 favorites-node
 
-#create network
-docker network create favorites-net
+#create network (bridge is default but can be added in the command)
+docker network create --driver bridge favorites-net
+
+    Docker also supports these alternative drivers - though you will use the "bridge" driver in most cases:
+
+    host: For standalone containers, isolation between container and host system is removed (i.e. they share localhost as a network)
+
+    overlay: Multiple Docker daemons (i.e. Docker running on different machines) are able to connect with each other. Only works in "Swarm" mode which is a dated / almost deprecated way of connecting multiple containers
+
+    macvlan: You can set a custom MAC address to a container - this address can then be used for communication with that container
+
+    none: All networking is disabled.
+
+    Third-party plugins: You can install third-party plugins which then may add all kinds of behaviors and functionalities
+
+    As mentioned, the "bridge" driver makes most sense in the vast majority of scenarios.
 
 docker run -d --name mongodb --network favorites-net mongo
 docker run --name favorites --network favorites-net -d --rm -p 3000:3000 favorites-node
