@@ -1,3 +1,7 @@
+https://www.udemy.com/course/docker-kubernetes-the-practical-guide/
+
+#SECTION 1-4
+
 #using named volumes (persistent)
 docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback feedback-node:volumes
 
@@ -40,3 +44,48 @@ docker network create --driver bridge favorites-net
 
 docker run -d --name mongodb --network favorites-net mongo
 docker run --name favorites --network favorites-net -d --rm -p 3000:3000 favorites-node
+
+#SECTION 5
+
+#81 
+docker run --name mongodb --rm -d -p 27017:27017 mongo
+
+#82
+docker build -t goals-node .
+docker run --name goals-backend --rm -d -p 80:80 goals-node
+
+#83 react needs to the container to run with the "-it" option to enable interactive terminal
+docker build -t goals-react .
+docker run --name goals-frontend --rm -d -p 3000:3000 -it goals-react
+
+#84
+docker network create goals-net
+docker run --name mongodb --rm -d --network goals-net mongo
+docker build -t goals-node .
+docker run --name goals-backend --rm -d --network goals-net -p 80:80 goals-node
+docker build -t goals-react .
+docker run --name goals-frontend --rm -d -p 3000:3000 -it goals-react
+
+#85 add data persistence to mongodb with volumes
+docker run --name mongodb -v data:/data/db --rm -d --network goals-net mongo
+
+#add authentication to mongodb
+docker run --name mongodb -v data:/data/db --rm -d --network goals-net -e MONGO_INITDB_ROOT_USERNAME=max -e MONGO_INITDB_ROOT_PASSWORD=secret mongo
+node app >>  'mongodb://max:secret@mongodb:27017/course-goals?authSource=admin'
+
+#86 volumes, bind mounts for nodejs container
+added nodemon as a devdependency to backend and modify npm start script
+docker run --name goals-backend -v "D:\vscode-workspace\docker_complete\backend:/app"-v logs:/app/logs -v /app/node_modules --rm -d --network goals-net -p 80:80 goals-node
+
+docker run --name goals-backend -v "D:\vscode-workspace\docker_complete\backend:/app"-v logs:/app/logs -v /app/node_modules -e MONGODB_USERNAME=max -e MONGODB_PASSWORD=secret --rm -d --network goals-net -p 80:80 goals-node
+
+
+#87 live source updates for react container
+docker run -v "D:\vscode-workspace\docker_complete\frontend\src:/app/src" --name goals-frontend --rm -p 3000:3000 -it goals-react
+
+
+
+
+
+
+
