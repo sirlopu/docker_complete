@@ -83,6 +83,20 @@ docker run --name goals-backend -v "D:\vscode-workspace\docker_complete\backend:
 #87 live source updates for react container
 docker run -v "D:\vscode-workspace\docker_complete\frontend\src:/app/src" --name goals-frontend --rm -p 3000:3000 -it goals-react
 
+#95-98
+#detached mode
+docker-compose up -d 
+
+# force re-build images
+docker-compose up --build -d 
+
+# just to build images in docker-compose file and not start the container
+docker-compose build 
+
+docker-compose down
+
+# and remove volumes
+docker-compose down -v
 
 
 
