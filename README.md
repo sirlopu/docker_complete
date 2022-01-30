@@ -268,3 +268,13 @@ docker-compose run --rm artisan config:cache
 docker-compose run --rm artisan view:clear
 docker-compose run --rm artisan route:clear
 docker-compose run --rm artisan config:clear
+
+Issue: Permission denied when Writing to logs in server image
+Fix: Added the following bind mounts to server service in docker-compose.yaml
+
+      - ./src:/var/www/html:delegated
+      - ./src:/var/www/html/storage/logs
+      - ./src:/var/www/html/storage/framework/sessions
+      - ./src:/var/www/html/storage/framework/views
+      - ./src:/var/www/html/storage/framework/cache
+
