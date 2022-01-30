@@ -3,7 +3,7 @@
 https://www.udemy.com/course/docker-kubernetes-the-practical-guide/
 
 --------
-# Section 1-4
+## Section 1-4
 
 #using named volumes (persistent)
 docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback feedback-node:volumes
@@ -49,7 +49,7 @@ docker run -d --name mongodb --network favorites-net mongo
 docker run --name favorites --network favorites-net -d --rm -p 3000:3000 favorites-node
 
 --------
-# Section 5
+## Section 5
 
 #81 
 docker run --name mongodb --rm -d -p 27017:27017 mongo
@@ -103,7 +103,7 @@ docker-compose down
 docker-compose down -v
 
 --------
-# Section 7
+## Section 7
 
 #utility containers
 #run a command on a running container
@@ -123,7 +123,7 @@ docker run -it -v "D:\vscode-workspace\docker_complete:/app" mynpm install expre
 docker-compose run --rm npm init  
 
 --------
-# NOTE ABOUT UTILITY CONTAINERS IN LINUX
+### NOTE ABOUT UTILITY CONTAINERS IN LINUX
 
 wanted to point out that on a Linux system, the Utility Container idea doesn't quite work as you describe it.  In Linux, by default Docker runs as the "Root" user, so when we do a lot of the things that you are advocating for with Utility Containers the files that get written to the Bind Mount have ownership and permissions of the Linux Root user.  (On MacOS and Windows10, since Docker is being used from within a VM, the user mappings all happen automatically due to NFS mounts.)
 
@@ -248,7 +248,7 @@ Keep in mind that this image will not be portable, but for the purpose of the Ut
 
 --------
 
-# Section 8
+## Section 8
 
 #build laravel project
 docker-compose run --rm composer create-project --prefer-dist laravel/laravel .
@@ -269,8 +269,9 @@ docker-compose run --rm artisan view:clear
 docker-compose run --rm artisan route:clear
 docker-compose run --rm artisan config:clear
 
-Issue: Permission denied when Writing to logs in server image
-Fix: Added the following bind mounts to server service in docker-compose.yaml
+**Issue:** Permission denied when Writing to logs in server image
+
+**Fix:** Added the following bind mounts to server service in docker-compose.yaml
 
       - ./src:/var/www/html:delegated
       - ./src:/var/www/html/storage/logs
