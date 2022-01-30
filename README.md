@@ -1,8 +1,9 @@
 # Docker & Kubernetes Course Notes
-
+--------
 https://www.udemy.com/course/docker-kubernetes-the-practical-guide/
 
-# SECTION 1-4
+--------
+# Section 1-4
 
 #using named volumes (persistent)
 docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback feedback-node:volumes
@@ -47,7 +48,8 @@ docker network create --driver bridge favorites-net
 docker run -d --name mongodb --network favorites-net mongo
 docker run --name favorites --network favorites-net -d --rm -p 3000:3000 favorites-node
 
-# SECTION 5
+--------
+# Section 5
 
 #81 
 docker run --name mongodb --rm -d -p 27017:27017 mongo
@@ -100,6 +102,7 @@ docker-compose down
 #and remove volumes
 docker-compose down -v
 
+--------
 # Section 7
 
 #utility containers
@@ -119,7 +122,7 @@ docker run -it -v "D:\vscode-workspace\docker_complete:/app" mynpm install expre
 #allows to run command for a single service from yaml by service name
 docker-compose run --rm npm init  
 
-
+--------
 # NOTE ABOUT UTILITY CONTAINERS IN LINUX
 
 wanted to point out that on a Linux system, the Utility Container idea doesn't quite work as you describe it.  In Linux, by default Docker runs as the "Root" user, so when we do a lot of the things that you are advocating for with Utility Containers the files that get written to the Bind Mount have ownership and permissions of the Linux Root user.  (On MacOS and Windows10, since Docker is being used from within a VM, the user mappings all happen automatically due to NFS mounts.)
@@ -243,7 +246,9 @@ Reference to Solution 2 above: https://vsupalov.com/docker-shared-permissions/
 
 Keep in mind that this image will not be portable, but for the purpose of the Utility Containers like this, I don't think this is an issue at all for these "Utility Containers"
 
-# SECTION 8
+--------
+
+# Section 8
 
 #build laravel project
 docker-compose run --rm composer create-project --prefer-dist laravel/laravel .
