@@ -241,3 +241,24 @@ Reference to Solution 2 above: https://vsupalov.com/docker-shared-permissions/
 Keep in mind that this image will not be portable, but for the purpose of the Utility Containers like this, I don't think this is an issue at all for these "Utility Containers"
 
 ##########################################################################
+
+SECTION 8
+
+# build laravel project
+docker-compose run --rm composer create-project --prefer-dist laravel/laravel .
+
+start up specific services
+docker-compose up -d server php mysql
+
+#force recreate images if something changed
+docker-compose up -d --build server 
+
+docker-compose run --rm artisan migrate
+
+if you run into an issue with QueryException, do this:
+
+docker-compose run --rm artisan cache:clear
+docker-compose run --rm artisan config:cache
+docker-compose run --rm artisan view:clear
+docker-compose run --rm artisan route:clear
+docker-compose run --rm artisan config:clear
