@@ -279,3 +279,14 @@ docker-compose run --rm artisan config:clear
       - ./src:/var/www/html/storage/framework/views
       - ./src:/var/www/html/storage/framework/cache
 
+## Using AMI Linux image
+
+    sudo amazon-linux-extras install docker
+    sudo service docker start
+
+Other docker installation options: https://docs.docker.com/engine/install/
+
+docker pull sirlopug/node-example-1
+sudo docker run -d --rm -p 80:80 sirlopug/node-example-1
+
+
