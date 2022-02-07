@@ -290,3 +290,11 @@ docker pull sirlopug/node-example-1
 sudo docker run -d --rm -p 80:80 sirlopug/node-example-1
 
 
+## Section 9
+
+#typical workflow to publish to AWS
+Build locally, tag local build with docker hub name, then docker push
+In ECS, build container, tasks, then service. 
+
+#Build the frontend
+    docker build -f .\frontend\Dockerfile.prod -t sirlopug/goals-react .\frontend\
