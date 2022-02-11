@@ -381,6 +381,37 @@ NOTE: tag and push your image to docker hub or registry of choice
     kubectl delete deployment first-app
 
 ---------------
-###declarative approach 
+###declarative approach (recommended)
 
 #creating a deployment configuration file
+    begin by creating your deployment.yaml file (file name may vary)
+
+#applies a config file to the connected cluster (it can have multiple -f files)
+    kubectl apply -f='deployment.yaml'
+
+    returns >> deployment.apps/second-app-deployment created
+
+#2nd..create a service.yaml for creating a service object
+    kubectl apply -f='service.yaml'
+
+    returns >> service/backend created
+
+Then, open service by: minikube service backend
+
+#modifying deployment configuration
+If you need to make changes to the deployment.yaml file...you modify it and then you re-apply it.
+
+#deleting resources (can define multiple resources -f or by using commas to separate the files)
+    kubectl delete -f='deployment.yaml'
+
+#you can combine the two config into a master config file.
+
+#delete deployment and service objects by label
+    kubectl delete deployments, services -l group=example
+
+#you can configure ENV variables, how the image should be pulled, etc. See Container v1 core in Kubernetes documentation
+https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#container-v1-core
+
+    imagePullPolicy: Always >> always pulls image even if the newly created image has the same tag name
+
+
