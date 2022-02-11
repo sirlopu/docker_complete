@@ -298,3 +298,89 @@ In ECS, build container, tasks, then service.
 
 #Build the frontend
     docker build -f .\frontend\Dockerfile.prod -t sirlopug/goals-react .\frontend\
+
+------------------
+## Section 10
+
+---------------
+###imperative approach 
+
+#access dashboard
+    minkube dashboard
+
+#check minikube status
+    minikube status
+
+#start minikube
+    minikube start --driver=docker
+
+#kubeconfig: Misconfigured
+    minikube update-context
+
+#send instruction to cluster to create the deployment object using image - imperative approach
+NOTE: tag and push your image to docker hub or registry of choice
+    kubectl create deployment <name> --image=<image name>
+    kubectl create deployment first-app --image=sirlopu/kub-first-app
+
+        *** returns >> deployment.apps/first-app created
+
+#get deployments
+    kubectl get deployments
+
+#get all the pods created by deployment command
+    kubectl get pods
+
+#delete deployment objects
+    delete deployment <name>
+
+#create a service - service object IPs do not change and can be exposed externally.  Type defined must be supported by the provider (AWS and minikube supports it)
+    kubectl expose deployment <deployment name> --type=<define type> --port=<port to expose>
+    kubectl expose deployment first-app --type=LoadBalancer --port=8080
+
+    ** returns >> service/first-app exposed
+
+#get services
+    kubectl get services 
+
+#for local setup and get an IP for service - not needed for a CSP
+    minikube service first-app
+
+#Scaling - example below creates 3 pods
+    kubectrl scale deployment/first-app --replicas=3
+
+    #scale down to 1 replica
+        kubectrl scale deployment/first-app --replicas=1
+
+#set a new image after the deployment - updating image in deployment
+    make changes to the source
+    build image with a different tag using docker
+    docker push to docker hub with the new tag name
+
+    kubectl set image deploment/<name of deployment> <name of container>=<docker hub's image name>
+    kubectl set image deployment/first-app kub-first-app=sirlopu/kub-first-app:2
+
+        returns >> deployment.apps/first-app image updated
+    
+    #check status of deployment:
+    kubectl rollout status deployment/first-app
+
+#undo the latest deployment
+    kubectl rolloout undo deployment/first-app
+
+#check history
+    kubectl rollout history deployment/first-app
+    kubectl rollout history deployment/first-app --revision=3
+
+#rollback to a previous revision
+    kubectl rolloout undo deployment/first-app --to-revision=1
+
+#delete service
+    kubectl delete service first-app
+
+#delete deployment
+    kubectl delete deployment first-app
+
+---------------
+###declarative approach 
+
+#creating a deployment configuration file
