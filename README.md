@@ -465,7 +465,7 @@ https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#container-v
 
 
 ---------------
-## Section 13
+## Section 13 - Managing Data & Volumes with Kubernetes
 
 **Volume Types:**
 
@@ -520,3 +520,8 @@ kubectl get pvc
 | Defined and created together with Pod|Created standalone, claimed via a PVC|
 | Repetitive and hard to administer on a global level|Can be defined once and used multiple times|
 
+---------------
+## Section 14 - Kubernetes & Networking
+
+Pod-Internal Communications
+Pod-To-Pod Communications
