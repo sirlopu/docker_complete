@@ -436,7 +436,30 @@ Pod- and Node- independent VOLUMES are sometimes required
 - Two ways to provision PVs: statically & dynamically
 - PV Storage is not in the Cluster node
 
-accessModes:
-    - ReadWriteOnce
-    - ReadOnlyMany
-    - ReadWriteMany  
+**accessModes:**
+
+- ReadWriteOnce
+
+- ReadOnlyMany
+
+- ReadWriteMany  
+
+#kubernetes storage default classes
+    kubectl get sc
+
+kubectl get pv
+    NAME      CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM              STORAGECLASS   REASON   AGE
+    host-pv   1Gi        RWO            Retain           Bound    default/host-pvc   standard                35s
+
+kubectl get pvc
+    NAME       STATUS   VOLUME    CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+    host-pvc   Bound    host-pv   1Gi        RWO            standard       44s
+
+**"State"** is data created and used by your app which must not be lost
+- user-generated data,user accounts, ... 
+    often stored in a db but could also be files (e.g. uploads)
+- intermediate results derived by the app ...
+    often stored in memory, temp db tables or files
+
+    
+
