@@ -372,7 +372,7 @@ NOTE: tag and push your image to docker hub or registry of choice
     kubectl rollout history deployment/first-app --revision=3
 
 #rollback to a previous revision
-    kubectl rolloout undo deployment/first-app --to-revision=1
+    kubectl rollout undo deployment/first-app --to-revision=1
 
 #delete service
     kubectl delete service first-app
@@ -415,3 +415,5 @@ https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#container-v
     imagePullPolicy: Always >> always pulls image even if the newly created image has the same tag name
 
 
+---------------
+## Section 13
