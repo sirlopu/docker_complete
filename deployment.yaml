@@ -23,4 +23,3 @@ spec:
           hostPath: 
             path: /data
             type: DirectoryOrCreate
-                

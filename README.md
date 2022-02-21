@@ -418,5 +418,15 @@ https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#container-v
 ---------------
 ## Section 13
 
-emptyDir -- pod specific
-hostPath -- node / host specific
+**Volume Types:**
+
+    *emptyDir* -- pod specific
+    *hostPath* -- node / host specific 
+    *CSI* - more flexible; allows you to attach any storage solution as long as they have an existing integration solution for this type (e.g. AWS EFS CSI)
+
+Volumes are destroyed when a Pod is removed.
+    hostPath partially works around that in "one Node" environment
+
+Pod- and Node- independent VOLUMES are sometimes required
+
+**Persistent Volumes**
