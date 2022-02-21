@@ -420,9 +420,9 @@ https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#container-v
 
 **Volume Types:**
 
-    *emptyDir* -- pod specific
-    *hostPath* -- node / host specific 
-    *CSI* - more flexible; allows you to attach any storage solution as long as they have an existing integration solution for this type (e.g. AWS EFS CSI)
+*emptyDir* -- pod specific
+*hostPath* -- node / host specific 
+*CSI* - more flexible; allows you to attach any storage solution as long as they have an existing integration solution for this type (e.g. AWS EFS CSI)
 
 Volumes are destroyed when a Pod is removed.
     hostPath partially works around that in "one Node" environment
@@ -430,3 +430,13 @@ Volumes are destroyed when a Pod is removed.
 Pod- and Node- independent VOLUMES are sometimes required
 
 **Persistent Volumes**
+- Volume is detached from the Pod or Node
+- PV Claims >> Persistent Volume (PV)
+    many-to-many
+- Two ways to provision PVs: statically & dynamically
+- PV Storage is not in the Cluster node
+
+accessModes:
+    - ReadWriteOnce
+    - ReadOnlyMany
+    - ReadWriteMany  
