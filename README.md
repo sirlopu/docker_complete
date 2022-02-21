@@ -417,3 +417,6 @@ https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#container-v
 
 ---------------
 ## Section 13
+
+emptyDir -- pod specific
+hostPath -- node / host specific
