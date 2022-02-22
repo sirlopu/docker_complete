@@ -526,3 +526,11 @@ kubectl get pvc
 Pod-Internal Communications
 Pod-To-Pod Communications
 
+CoreDNS -- cluster internal domain names
+
+      containers:
+      - name: users
+        image: sirlopu/kub-demo-users:latest
+        env: 
+          - name: AUTH_ADDRESS
+            value: "auth-service.default"
