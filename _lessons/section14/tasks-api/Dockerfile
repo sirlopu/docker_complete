@@ -8,6 +8,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 8000
 
-CMD [ "node", "auth-app.js" ]
+CMD [ "node", "tasks-app.js" ]

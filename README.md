@@ -534,3 +534,45 @@ CoreDNS -- cluster internal domain names
         env: 
           - name: AUTH_ADDRESS
             value: "auth-service.default"
+
+## Section 15 - Kubernetes - Deployment (AWS EKS)
+
+| What Kubernetes Will Do     | What You Need To Do/Setup |
+| ----------- | ----------- |
+| Create your objects (e.g. Pods) and manage them| Create the Cluster and the Node Instances (Worker + Master Nodes)|
+| Monitor Pods and re-create them, scale Pods, etc.| Setup API Server, kubelet and other Kubernetes services/software on Nodes|
+| Kubernetes utilizes the provided (cloud) resource to apply your configuration/goals | Create other (cloud) provider resources that might be needed (e.g. Load Balancer, Filesystems)|
+
+CloudFormation template: https://docs.aws.amazon.com/eks/latest/userguide/creating-a-vpc.html#create-vpc
+https://amazon-eks.s3.us-west-2.amazonaws.com/cloudformation/2020-10-29/amazon-eks-vpc-private-subnets.yaml
+
+DB: 
+mongodb+srv://<username>:<password>@cluster0.grs4c.mongodb.net/users?retryWrites=true&w=majority
+
+
+Backup your config file for .kube
+Configure AWS CLI config 
+Set kubectl to talk to AWS Cluster:
+    
+    aws eks --region <region> update-kubeconfig --name <AWS Cluster Name>
+    aws eks --region us-west-1 update-kubeconfig --name kub-dep-demo
+
+    .kube/config will be updated with the relevant AWS configs
+
+Create your Node Group
+
+https://github.com/kubernetes-sigs/aws-efs-csi-driver
+
+Install AWS EFS drives as CSI >> 
+
+    kubectl apply -k "github.com/kubernetes-sigs/aws-efs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.3"
+
+Create EFS Security Group for EKS VPC:
+
+    Inbound rules NFS 2049 TCP
+    Use the VPC IPv4 for the inbound source
+
+Create EFS 
+    Use customize option and select the right security group
+
+

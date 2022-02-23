@@ -1,37 +1,33 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const authRoutes = require('./routes/auth-routes');
+
 const app = express();
 
 app.use(bodyParser.json());
 
-app.get('/verify-token/:token', (req, res) => {
-  const token = req.params.token;
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST,GET,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 
-  // dummy verification!
-  if (token === 'abc') {
-    return res.status(200).json({ message: 'Valid token.', uid: 'u1' });
+app.use(authRoutes);
+
+app.use((err, req, res, next) => {
+  console.log(err);
+  let code = 500;
+  let message = 'Something went wrong.';
+  if (err.code) {
+    code = err.code;
   }
-  res.status(401).json({ message: 'Token invalid.' });
-});
 
-app.get('/token/:hashedPassword/:enteredPassword', (req, res) => {
-  const hashedPassword = req.params.hashedPassword;
-  const enteredPassword = req.params.enteredPassword;
-
-  // dummy password verification!
-  if (hashedPassword === enteredPassword + '_hash') {
-    const token = 'abc';
-    return res.status(200).json({ message: 'Token created.', token: token });
+  if (err.message) {
+    message = err.message;
   }
-  res.status(401).json({ message: 'Passwords do not match.' });
+  res.status(code).json({ message: message });
 });
 
-app.get('/hashed-password/:password', (req, res) => {
-  // dummy hashed pw generation!
-  const enteredPassword = req.params.password;
-  const hashedPassword = enteredPassword + '_hash';
-  res.status(200).json({ hashedPassword: hashedPassword });
-});
-
-app.listen(80);
+app.listen(3000);
